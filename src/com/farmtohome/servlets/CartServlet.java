@@ -48,9 +48,12 @@ public class CartServlet extends HttpServlet {
 		double total=0.0;
 		
 		final String q1 = "quantity1";
+		final String q2 = "quantity2";
+		final String q3 = "quantity3";
+		
 		String name1 = request.getParameter(q1);
-		String name2 = request.getParameter("quantity2");
-		String name3 = request.getParameter("quantity3");
+		String name2 = request.getParameter(q2);
+		String name3 = request.getParameter(q3);
 		
 		String chicken1 = request.getParameter("chicken1");
 		String chicken2 = request.getParameter("chicken2");

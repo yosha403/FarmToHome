@@ -34,7 +34,7 @@ public class CategoryService extends AbstractService{
 		}
 		
 		/**
-		 * Get Category by Id
+		 * Update Category name by Id
 		 * @param id
 		 * @param name
 		 * @return boolean

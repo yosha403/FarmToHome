@@ -51,14 +51,12 @@ public class FirstModelServlet extends HttpServlet {
 				String str1 = creds.getFirstName();
 				String str2 = " ";
 				String str3 = creds.getLastName();
-				StringConcat s = (s1,s2,s3) -> s1 + s2 + s3;				 //Lambda expression to concatinate first name and lastname
+				StringConcat s = (s1,s2,s3) -> s1 + s2 + s3;				 //Lambda expression to concatenate first name and last name
 				session.setAttribute("name", s.sconcat(str1, str2, str3)); 
 				session.setAttribute("customer", creds);
 				break;
 			}
-		}
-		
-		//cs.close();
+		}		
 		cs=null;
 		
 	}

@@ -11,23 +11,35 @@ import java.util.List;
 import javax.persistence.Query;
 
 public class OrderHeaderService extends AbstractService{
-	// add
+	
+	/**
+	 * Add into order header
+	 * @param header
+	 */
 	public void add(OrderHeader header) {
 		em.getTransaction().begin();
 		em.persist(header);
 		em.getTransaction().commit();		
 	}
 	
-	// find all
+	/**
+	 * Get all orders
+	 * @return List<>
+	 */
 	public List<OrderHeader> getAll() {
 		Query query = em.createNamedQuery("FindAllOrders");
 		List<OrderHeader> orderList = query.getResultList();
 		for (OrderHeader p : orderList) {
-			System.out.println(p);
+			//System.out.println(p);
 		}		
 		return orderList;
 	}
 	
+	/**
+	 * Get all orders by customer id
+	 * @param id
+	 * @return List<>
+	 */
 	public List<OrderHeader> getAllbyId(int id) {
 		Query query = em.createNamedQuery("FindByCustId");
 		query.setParameter("id", id);
@@ -36,7 +48,12 @@ public class OrderHeaderService extends AbstractService{
 	}
 
 	
-	// update
+	/**
+	 * Update order status in order header table
+	 * @param id
+	 * @param status
+	 * @return boolean
+	 */
 	public boolean update(int id, String status) {
 		em.getTransaction().begin();
 		OrderHeader p = em.find(OrderHeader.class, id);
@@ -44,7 +61,11 @@ public class OrderHeaderService extends AbstractService{
 		em.getTransaction().commit();
 		return true;
 	}
-	// delete by id
+	
+	/**
+	 * Delete order by Id
+	 * @param id
+	 */
 	public void deleteOrder(int id) {
 		Query query = em.createNamedQuery("DeleteOrderbyId");
 		em.getTransaction().begin();

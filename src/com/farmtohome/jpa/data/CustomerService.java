@@ -12,7 +12,10 @@ import javax.persistence.Query;
 
 public class CustomerService extends AbstractService{
 
-			// add
+			/**
+			 * Add a new customer
+			 * @param customer
+			 */
 			public void add(Customer customer) {
 				em.getTransaction().begin();
 				em.persist(customer);
@@ -20,7 +23,10 @@ public class CustomerService extends AbstractService{
 
 			}
 			
-			// find all
+			/**
+			 * Get all customers
+			 * @return List<>
+			 */
 			public List<Customer> getAll() {
 				Query query = em.createNamedQuery("FindAllCustomer");
 				List<Customer> custList = query.getResultList();
@@ -30,7 +36,12 @@ public class CustomerService extends AbstractService{
 				return custList;
 			}
 			
-			// update
+			/**
+			 * Update Customer password by id
+			 * @param id
+			 * @param password
+			 * @return boolean
+			 */
 			public boolean update(int id, String password) {
 				em.getTransaction().begin();
 				Customer ctg = em.find(Customer.class, id);
@@ -38,7 +49,10 @@ public class CustomerService extends AbstractService{
 				em.getTransaction().commit();
 				return true;
 			}
-			// delete by id
+			/**
+			 * Delete customer by id
+			 * @param id
+			 */
 			public void deleteById(int id) {
 				Query query = em.createNamedQuery("DeleteCustbyId");
 				em.getTransaction().begin();

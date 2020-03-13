@@ -12,14 +12,20 @@ import javax.persistence.Query;
 
 public class ProductService extends AbstractService{
 				
-				// add
+				/**
+				 * Add new product
+				 * @param product
+				 */
 				public void add(Product product) {
 					em.getTransaction().begin();
 					em.persist(product);
 					em.getTransaction().commit();		
 				}
 				
-				// find all
+				/**
+				 * Get all products
+				 * @return List<>
+				 */
 				public List<Product> getAll() {
 					Query query = em.createNamedQuery("FindAllProducts");
 					List<Product> prodList = query.getResultList();
@@ -29,7 +35,12 @@ public class ProductService extends AbstractService{
 					return prodList;
 				}
 				
-				// update
+				/**
+				 * Update product name by Id
+				 * @param id
+				 * @param name
+				 * @return boolean
+				 */
 				public boolean update(int id, String name) {
 					em.getTransaction().begin();
 					Product p = em.find(Product.class, id);
@@ -37,7 +48,11 @@ public class ProductService extends AbstractService{
 					em.getTransaction().commit();
 					return true;
 				}
-				// delete by id
+				
+				/**
+				 * Delete product by Id
+				 * @param id
+				 */
 				public void deleteProdId(int id) {
 					Query query = em.createNamedQuery("DeleteProdbyId");
 					em.getTransaction().begin();

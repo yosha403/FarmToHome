@@ -12,14 +12,20 @@ import javax.persistence.Query;
 
 public class OrderDetailsService extends AbstractService{
 
-		// add
+		/**
+		 * Add into order details
+		 * @param details
+		 */
 		public void add(OrderDetails details) {
 			em.getTransaction().begin();
 			em.persist(details);
 			em.getTransaction().commit();		
 		}
 		
-		// find all
+		/**
+		 * Get all order details
+		 * @return List<>
+		 */
 		public List<OrderDetails> getAll() {
 			Query query = em.createNamedQuery("FindAllDetails");
 			List<OrderDetails> detailList = query.getResultList();
@@ -27,8 +33,14 @@ public class OrderDetailsService extends AbstractService{
 				//System.out.println(p);
 			}		
 			return detailList;
-		}				
-		// update
+		}
+		
+		/**
+		 * Update quantity in order details
+		 * @param id
+		 * @param quantity
+		 * @return boolean
+		 */
 		public boolean update(int id, int quantity) {
 			em.getTransaction().begin();
 			OrderDetails p = em.find(OrderDetails.class, id);
@@ -36,7 +48,10 @@ public class OrderDetailsService extends AbstractService{
 			em.getTransaction().commit();
 			return true;
 		}
-		// delete by id
+		/**
+		 * Delete order details by Id
+		 * @param id
+		 */
 		public void deleteDetailId(int id) {
 			Query query = em.createNamedQuery("DeleteDetailbyId");
 			em.getTransaction().begin();
