@@ -46,7 +46,6 @@ public class OrderHeaderService extends AbstractService{
 		List<OrderHeader> dList = query.getResultList();			
 		return dList;
 	}
-
 	
 	/**
 	 * Update order status in order header table
