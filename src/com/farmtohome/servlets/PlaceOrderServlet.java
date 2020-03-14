@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.farmtohome.exceptions.QuantityException;
 import com.farmtohome.jpa.data.Customer;
 import com.farmtohome.jpa.data.Item;
 import com.farmtohome.jpa.data.OrderDetails;
@@ -63,12 +64,16 @@ public class PlaceOrderServlet extends HttpServlet {
 		Customer c = (Customer) session.getAttribute("customer");
 		
 		OrderHeaderService ohService = new OrderHeaderService();
-		OrderDetails odetails;
+		OrderDetails odetails = null;
 		OrderDetailsService ods = new OrderDetailsService();	
-						
+								
 		if (!cart.isEmpty()) {			
 			for (Item item : cart) {				
-				odetails = new OrderDetails(item.getItemQuantity(),item.getItemPrice()*item.getItemQuantity());				
+				try {
+					odetails = new OrderDetails(item.getItemQuantity(),item.getItemPrice()*item.getItemQuantity());
+				} catch (QuantityException e) {			
+					e.printStackTrace();
+				}				
 				ods.add(odetails);
 			}
 			OrderHeader oh;		
@@ -77,6 +82,7 @@ public class PlaceOrderServlet extends HttpServlet {
 		}
 		RequestDispatcher rd = getServletContext().getRequestDispatcher("/success.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/**

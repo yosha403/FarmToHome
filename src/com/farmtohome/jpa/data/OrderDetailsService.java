@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import com.farmtohome.exceptions.QuantityException;
+
 public class OrderDetailsService extends AbstractService{
 
 		/**
@@ -44,7 +46,11 @@ public class OrderDetailsService extends AbstractService{
 		public boolean update(int id, int quantity) {
 			em.getTransaction().begin();
 			OrderDetails p = em.find(OrderDetails.class, id);
-			p.setQuantity(quantity);
+			try {
+				p.setQuantity(quantity);
+			} catch (QuantityException e) {			
+				e.printStackTrace();
+			}
 			em.getTransaction().commit();
 			return true;
 		}

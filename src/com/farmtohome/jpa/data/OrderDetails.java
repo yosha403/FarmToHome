@@ -11,6 +11,8 @@ import java.lang.Integer;
 
 import javax.persistence.*;
 
+import com.farmtohome.exceptions.QuantityException;
+
 /**
  * Entity implementation class for Entity: OrderDetails
  *
@@ -21,9 +23,9 @@ import javax.persistence.*;
 @NamedQuery(query="delete from OrderDetails d WHERE d.detailId=:id",name="DeleteDetailbyId")
 })
 
-public class OrderDetails implements Serializable {
+public class OrderDetails implements Comparable<OrderDetails> {
 
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,15 +39,14 @@ public class OrderDetails implements Serializable {
 
 	public OrderDetails() {
 		super();
-	}   
-	
+	}   	
 	
 	/**
 	 * @param detailId
 	 * @param quantity
 	 * @param linePrice
 	 */
-	public OrderDetails(Integer quantity, double linePrice) {
+	public OrderDetails(Integer quantity, double linePrice) throws QuantityException{
 		this();		
 		this.setQuantity(quantity);
 		this.setLinePrice(linePrice);	
@@ -61,10 +62,19 @@ public class OrderDetails implements Serializable {
 	public Integer getQuantity() {
 		return this.quantity;
 	}
-
-	public void setQuantity(Integer quantity) {
+	
+	/**
+	 * @param quantity the quantity to set
+	 * @throws QuantityException
+	 */
+	
+	public void setQuantity(Integer quantity) throws QuantityException {
+		if (quantity < 0) {
+			throw new QuantityException(); 	// uses default message
+		}	
 		this.quantity = quantity;
-	}   
+	}
+	
 	public double getLinePrice() {
 		return this.linePrice;
 	}
@@ -109,6 +119,11 @@ public class OrderDetails implements Serializable {
 		} else if (!quantity.equals(other.quantity))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(OrderDetails o) {	
+		return 0;
 	}
    
 }
